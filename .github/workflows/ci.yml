@@ -73,6 +73,12 @@ jobs:
         run: |
           cmake --preset linux -DCMAKE_CXX_COMPILER=${{ matrix.compiler }}
           cmake --build --preset linux-release
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenLoco-${{ runner.os }}-lin32-cmake
+          path: artifacts
+          if-no-files-found: error
       - name: Run Tests
         run: |
           ctest --test-dir build/linux/ --output-on-failure
